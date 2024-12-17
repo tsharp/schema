@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/tsharp/schema/stand-alone/owner",
+    "title": "Extended Meta-Schema",
+    "allOf": [
+      {
+        "$ref": "https://json-schema.org/draft/2020-12/schema"
+      }
+    ],
+    "properties": {
+      "$owner": {
+        "type": "string",
+        "description": "The single owner of the schema.",
+        "minLength": 1,
+        "pattern": "^[a-zA-Z0-9._%+-]+$"
+      },
+      "$owners": {
+        "type": "array",
+        "description": "A list of owners for the schema.",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9._%+-]+$"
+        },
+        "minItems": 1
+      }
+    },
+    "oneOf": [
+      {
+        "required": ["$owner"],
+        "not": { "required": ["$owners"] }
+      },
+      {
+        "required": ["$owners"],
+        "not": { "required": ["$owner"] }
+      }
+    ]
+  }
